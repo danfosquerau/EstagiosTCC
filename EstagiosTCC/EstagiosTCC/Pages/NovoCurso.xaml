@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behaviors="clr-namespace:EstagiosTCC.Util"
+             mc:Ignorable="d"
+             x:Class="EstagiosTCC.Pages.NovoCurso"
+             Title="Cursos">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Fill" WidthRequest="375">
+
+            <Entry x:Name="txtID"
+               Placeholder="ID"
+               IsEnabled="False"
+               HorizontalOptions="Center"
+               WidthRequest="300"
+               IsVisible="False"/>
+
+            <Label HorizontalOptions="CenterAndExpand" VerticalOptions="Fill"
+               Text=""/>
+
+            <StackLayout Orientation="Horizontal">
+
+                <Entry x:Name="txtNomeCurso"
+                       Keyboard="Text"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Nome do Curso"
+                       HorizontalOptions="CenterAndExpand"
+                       WidthRequest="375"/>
+
+            </StackLayout>
+
+            <StackLayout>
+
+                <Entry x:Name="txtCoordenador"
+                       Keyboard="Text"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Nome do Coordenador"
+                       HorizontalOptions="CenterAndExpand"
+                       WidthRequest="375"/>
+
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+
+                <Button Text="Limpar"
+                Clicked="btnLimpar" 
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="120" />
+
+                <Button Text="Excluir"
+                Clicked="btnExcluir" 
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="120" />
+
+                <Button Text="Salvar"
+                Clicked="btnSalvar" 
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="120" />
+
+            </StackLayout>
+
+            <ScrollView HorizontalOptions="CenterAndExpand" VerticalOptions="Fill" WidthRequest="375"
+                    VerticalScrollBarVisibility="Always">
+                <ListView x:Name="listaCursos"
+                      CachingStrategy="RecycleElement"
+                      HasUnevenRows="True"
+                      ItemTapped="cursoTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="5">
+                                    <Label Text="{Binding idCurso}"
+                                       IsVisible="False"
+                                       FontSize="Micro"
+                                       TextColor="Gray"/>
+
+                                    <Label Text="{Binding coordenador}"
+                                       FontSize="Small"
+                                       TextColor="Gray"/>
+
+                                    <Label Text="{Binding nomeCurso}"
+                                       FontSize="Medium"
+                                       TextColor="Black"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Behaviors>
+                        <behaviors:ItemTappedBehavior/>
+                    </ListView.Behaviors>
+                </ListView>
+            </ScrollView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
