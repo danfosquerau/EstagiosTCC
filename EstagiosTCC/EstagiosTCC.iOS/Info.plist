@@ -34,5 +34,14 @@
     <string>EstagiosTCC</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+	
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Precisamos do acesso à sua galeria de fotos!</string>
+	
+	<key>NSCameraUsageDescription</key>
+	<string>Precisamos do acesso à sua câmera!</string>
+	
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Precisamos do acesso à sua localização!</string>
 </dict>
 </plist>
