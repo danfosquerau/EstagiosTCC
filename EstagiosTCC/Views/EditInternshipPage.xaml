@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:EstagiosTCC.ViewModels"
+             mc:Ignorable="d"
+             x:Class="EstagiosTCC.Views.EditInternshipPage"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:EditInternshipViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="tbiDelete" Text="Excluir" Command="{Binding DeleteCommand}"/>
+        <ToolbarItem x:Name="tbiSave" Text="Salvar" Command="{Binding SaveCommand}"/>
+        <ToolbarItem x:Name="tbiCancel" Text="Cancelar" Command="{Binding CancelCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <StackLayout HorizontalOptions="Fill"
+                     VerticalOptions="Fill"
+                     Spacing="5">
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="txtCompany"
+                       Text="{Binding SelectedInternship.Company}"
+                       Keyboard="Text"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Empresa"
+                       HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="txtSector"
+                       Text="{Binding SelectedInternship.Sector}"
+                       Keyboard="Text"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Setor"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="txtAddress"
+                       Text="{Binding SelectedInternship.Address}"
+                       Keyboard="Text"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Endereço"
+                       HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="txtWorkSchedule"
+                       Text="{Binding SelectedInternship.WorkSchedule}"
+                       Keyboard="Text"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Horário"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="txtPayment"
+                       Text="{Binding SelectedInternship.Payment}"
+                       Keyboard="Numeric"
+                       Placeholder="Bolsa em R$"
+                       HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="txtOtherAid"
+                       Text="{Binding SelectedInternship.OtherAid}"
+                       Keyboard="Text"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Auxílio Extra"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Editor x:Name="txtDescriptionOfActivities"
+                        Text="{Binding SelectedInternship.DescriptionOfActivities}"
+                        Keyboard="Text"
+                        IsSpellCheckEnabled="True"
+                        IsTextPredictionEnabled="True"
+                        Placeholder="Descrição das Atividades"
+                        HorizontalOptions="FillAndExpand"
+                        HeightRequest="150"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="txtContact"
+                       Text="{Binding SelectedInternship.Contact}"
+                       Keyboard="Text"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Contato"
+                       HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="txtLinkForMoreInfo"
+                       Text="{Binding SelectedInternship.LinkForMoreInfo}"
+                       Keyboard="Text"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Link para mais informações"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <Grid HorizontalOptions="Fill" VerticalOptions="Fill">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="0" Grid.Column="0">
+                    <Label HorizontalOptions="FillAndExpand"
+                           Text="Todos os Cursos:"/>
+                    <ScrollView>
+                        <ListView x:Name="lvwCourses"
+                                  ItemsSource="{Binding ListCourses}"
+                                  ItemTapped="LvwCourses_ItemTapped"
+                                  CachingStrategy="RecycleElement"
+                                  HasUnevenRows="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Padding="5">
+                                            <Label Text="{Binding Uid}"
+                                                   IsVisible="False"/>
+                                            <Label Text="{Binding CourseName}"
+                                                   FontSize="Small"
+                                                   TextColor="Black"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollView>
+                </StackLayout>
+                <StackLayout Grid.Row="0" Grid.Column="1">
+                    <Label HorizontalOptions="FillAndExpand" 
+                           Text="Cursos relacionados ào estágio:"/>
+                    <ScrollView>
+                        <ListView x:Name="lvwCoursesOfInternship"
+                                  ItemsSource="{Binding ListCoursesOfInternship}"
+                                  ItemTapped="LvwCoursesOfInternship_ItemTapped"
+                                  CachingStrategy="RecycleElement"
+                                  HasUnevenRows="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Padding="5">
+                                            <Label Text="{Binding Uid}"
+                                                   IsVisible="False"/>
+                                            <Label Text="{Binding CourseName}"
+                                                   FontSize="Small"
+                                                   TextColor="Black"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollView>
+                </StackLayout>
+            </Grid>
+            <Label HorizontalOptions="FillAndExpand" VerticalOptions="Fill"
+                   Text="Adicione uma imagem à sua publicação! OBS: jpg ou png."/>
+            <Image x:Name="imgAttachment"
+                   Source="{Binding UrlAttachment}"
+                   BackgroundColor="Gray"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   Scale="1"/>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnChooseImage"
+                        Command="{Binding ChooseImageCommand}"
+                        Text="Escolher Imagem"
+                        HorizontalOptions="CenterAndExpand" />
+                <Button x:Name="btnTakePicture"
+                        Command="{Binding TakePictureCommand}"
+                        Text="Camera"
+                        HorizontalOptions="CenterAndExpand" />
+                <Button x:Name="btnRemoveImage"
+                        Command="{Binding RemoveImageCommand}"
+                        Text="Remover a Imagem"
+                        HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,12 @@
+﻿namespace EstagiosTCC.UWP
+{
+    public sealed partial class MainPage
+    {
+        public MainPage()
+        {
+            this.InitializeComponent();
+
+            LoadApplication(new EstagiosTCC.App());
+        }
+    }
+}
