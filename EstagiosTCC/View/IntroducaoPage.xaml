@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EstagiosTCC.View.IntroducaoPage"
+             NavigationPage.HasNavigationBar="False"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource ColorAccent}">
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="White"/>
+
+            <ScrollView HorizontalOptions="CenterAndExpand" 
+                        VerticalScrollBarVisibility="Never">
+                <StackLayout WidthRequest="{OnPlatform Default=300, UWP=400}">
+                    
+                    <Image Source="logo_without_writing.png" 
+                       WidthRequest="200"
+                       HeightRequest="200"
+                       Aspect="AspectFit"
+                       Margin="0,50,0,70"/>
+
+                    <Button Text="Entrar com o Facebook"
+                            HorizontalOptions="FillAndExpand"
+                            Command="{Binding EntrarComFacebookCommand}" 
+                            BackgroundColor="#3B5998"
+                            TextColor="White"
+                            CornerRadius="20"/>
+
+                    <Button Text="Entrar com o Google"
+                            HorizontalOptions="FillAndExpand"
+                            Command="{Binding EntrarComGoogleCommand}"
+                            BackgroundColor="#DB4437"
+                            TextColor="White"
+                            CornerRadius="20"
+                            Margin="0,20,0,0"/>
+
+                    <StackLayout Orientation="Horizontal" Margin="0,20,0,60">
+                        <Button Text="Entrar" 
+                                Command="{Binding EntrarCommand}"
+                                WidthRequest="{OnPlatform Default=137, UWP=187}"
+                                BackgroundColor="White"
+                                TextColor="{StaticResource ColorPrimary}"
+                                CornerRadius="20"
+                                Margin="0,0,10,0"/>
+                        <Button Text="Cadastre-se"
+                                Command="{Binding CadastroUsuarioCommand}"
+                                WidthRequest="{OnPlatform Default=137, UWP=187}"
+                                BackgroundColor="Transparent"
+                                BorderColor="White"
+                                BorderWidth="1"
+                                TextColor="White"
+                                CornerRadius="20"
+                                Margin="10,0,0,0"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EstagiosTCC.View.CadastroUsuarioPage"
+             NavigationPage.HasNavigationBar="False"
+             Title="{Binding Title}">
+<ContentPage.Content>
+    <StackLayout>
+    <ScrollView VerticalScrollBarVisibility="Never">
+    <StackLayout Spacing="0">
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           BackgroundColor="{StaticResource ColorAccent}"/>
+        <RelativeLayout>
+            <BoxView x:Name="boxView" 
+                     Color="{StaticResource ColorAccent}" 
+                     HeightRequest="150" 
+                     RelativeLayout.WidthConstraint=
+                     "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+            <Image x:Name="imgPerfil" 
+                   Source="{Binding ImgPerfil}"
+                   HeightRequest="160"
+                   WidthRequest="160" 
+                   RelativeLayout.XConstraint
+                   ="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor={OnPlatform UWP=.5, Default=.43 }, Constant = -80}" 
+                   RelativeLayout.YConstraint
+                   ="{ConstraintExpression Type=RelativeToView, ElementName=boxView, Factor=1, Property=Height,Constant= -80}" />
+            <BoxView BackgroundColor="LightGray"
+                     HeightRequest="{OnPlatform UWP=120, Default=135}"
+                     WidthRequest="{OnPlatform UWP=40, Default=45}"
+                     RelativeLayout.XConstraint
+                     ="{ConstraintExpression Type=RelativeToView, ElementName=imgPerfil, Property=X, Factor=1, Constant=160}"
+                     RelativeLayout.YConstraint
+                     ="{ConstraintExpression Type=RelativeToView, ElementName=imgPerfil, Property=Y, Factor=1}"/>
+            <ImageButton x:Name="btnCamera" 
+                         Source="camera.png"
+                         Command="{Binding CameraCommand}"
+                         BackgroundColor="Transparent"
+                         HeightRequest="{OnPlatform UWP=32, Default=37}"
+                         WidthRequest="{OnPlatform UWP=32, Default=37}"
+                         Margin="4"
+                         Padding="3"
+                         RelativeLayout.XConstraint
+                         ="{ConstraintExpression Type=RelativeToView, ElementName=imgPerfil, Property=X, Factor=1, Constant=160}"
+                         RelativeLayout.YConstraint
+                         ="{ConstraintExpression Type=RelativeToView, ElementName=imgPerfil, Property=Y, Factor=1}"/>
+            <ImageButton x:Name="btnGaleria" 
+                         Source="gallery.png"
+                         Command="{Binding GaleriaCommand}"
+                         BackgroundColor="Transparent"
+                         HeightRequest="{OnPlatform UWP=32, Default=37}"
+                         WidthRequest="{OnPlatform UWP=32, Default=37}"
+                         Margin="4"
+                         Padding="3"
+                         RelativeLayout.XConstraint
+                         ="{ConstraintExpression Type=RelativeToView, ElementName=btnCamera, Property=X, Factor=1,Constant= -4}"
+                         RelativeLayout.YConstraint
+                         ="{ConstraintExpression Type=RelativeToView, ElementName=btnCamera, Property=Y, Factor=1, Constant={OnPlatform UWP=36, Default=41}}"/>
+            <ImageButton x:Name="btnRemover" 
+                         Source="delete.png"
+                         Command="{Binding RemoverFotoCommand}"
+                         BackgroundColor="Transparent"
+                         HeightRequest="{OnPlatform UWP=32, Default=37}"
+                         WidthRequest="{OnPlatform UWP=32, Default=37}"
+                         Margin="4"
+                         Padding="3"
+                         RelativeLayout.XConstraint
+                         ="{ConstraintExpression Type=RelativeToView, ElementName=btnGaleria, Property=X, Factor=1, Constant=-4}"
+                         RelativeLayout.YConstraint
+                         ="{ConstraintExpression Type=RelativeToView, ElementName=btnGaleria, Property=Y, Factor=1, Constant={OnPlatform UWP=36, Default=41}}"/>
+        </RelativeLayout>
+        <StackLayout HorizontalOptions="CenterAndExpand"
+                     WidthRequest="{OnPlatform Default=300, UWP=500}"
+                     Margin="0,20,0,60"
+                     Spacing="0">
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0">
+                <Label Text="Nome" 
+                       VerticalTextAlignment="Center" 
+                       WidthRequest="100"/>
+                <Entry x:Name="txtNome"
+                       Text="{Binding Usuario.Nome}"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <Label x:Name="Usuario_NomeError"
+                   IsVisible="False"
+                   TextColor="Red"
+                   VerticalTextAlignment="Center" />
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,10,0,0">
+                <Label Text="Email" 
+                       VerticalTextAlignment="Center"
+                       WidthRequest="100"/>
+                <Entry x:Name="txtEmail"
+                       Text="{Binding Usuario.Email}"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <Label x:Name="Usuario_EmailError"
+                   IsVisible="False"
+                   TextColor="Red"
+                   VerticalTextAlignment="Center" />
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,10,0,0">
+                <Label Text="Senha" 
+                       VerticalTextAlignment="Center"
+                       WidthRequest="100"/>
+                <Entry x:Name="txtSenha"
+                       IsPassword="True"
+                       Text="{Binding Usuario.Senha}"
+                       HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <Label x:Name="Usuario_SenhaError"
+                   IsVisible="False"
+                   TextColor="Red"
+                   VerticalTextAlignment="Center" />
+            <StackLayout Orientation="Horizontal"
+                         Margin="0,10,0,0"
+                         HorizontalOptions="Center">
+                <Switch IsToggled="{Binding Lembrar}"/>
+                <Label Text="Lembrar no aplicativo"
+                       HorizontalOptions="Start" 
+                       VerticalTextAlignment="Center"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="Center"
+                         Margin="0,30,0,0">
+                <Button Text="Confirmar" 
+                        Command="{Binding SalvarCommand}"
+                        WidthRequest="{OnPlatform Default=137, UWP=187}"
+                        BackgroundColor="#5cb85c"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Margin="0,0,10,0"/>
+                <Button Text="Cancelar" 
+                        Command="{Binding CancelarCommand}"
+                        WidthRequest="{OnPlatform Default=137, UWP=187}"
+                        BackgroundColor="#d9534f"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Margin="10,0,0,0"/>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+    </ScrollView>
+    </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

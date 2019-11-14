@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
@@ -7,15 +6,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="f6ce1200-8dec-4985-bc52-f95c9ba5fc2d"
-    Publisher="CN=169f0d62-fe81-4641-a4b5-21b78da41eb8"
+    Name="293e84a6-2db8-416a-8fb8-07197a4ea12c"
+    Publisher="CN=b4d49499-0018-49f6-a32b-3fb1da316931"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>EstagiosTCC.UWP</DisplayName>
-    <PublisherDisplayName>169f0d62-fe81-4641-a4b5-21b78da41eb8</PublisherDisplayName>
+    <PublisherDisplayName>b4d49499-0018-49f6-a32b-3fb1da316931</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,10 +31,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="EstagiosTCC.UWP.App">
       <uap:VisualElements
-        DisplayName="EstagiosTCC.UWP"
+        DisplayName="EstagiosTCC"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="EstagiosTCC.UWP"
+        Description="EstagiosTCC"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
           <uap:ShowNameOnTiles>
@@ -45,6 +44,8 @@
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>

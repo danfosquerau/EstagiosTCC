@@ -17,6 +17,9 @@
                 <Setter Property="BarBackgroundColor" Value="{StaticResource ColorPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
+            <Style TargetType="ActivityIndicator">
+                <Setter Property="Color" Value="Red" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

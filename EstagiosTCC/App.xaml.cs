@@ -1,27 +1,32 @@
-﻿using EstagiosTCC.Views;
+﻿using EstagiosTCC.Dao;
+using EstagiosTCC.Model;
+using EstagiosTCC.Util;
+using EstagiosTCC.View;
+using Firebase.Auth;
+using System;
 using Xamarin.Forms;
 
 namespace EstagiosTCC
 {
     public partial class App : Application
     {
-        public static string EVENT_RETURN_HOME_PAGE = "EVENT_RETURN_HOME_PAGE";
-        public static string EVENT_LOGIN = "EVENT_LOGIN";
-        public static string EVENT_LOGOUT = "EVENT_LOGOUT";
-
-        private readonly MainPage mainPage; 
+        /// <summary>
+        /// Dados de autenticação usuário logado no sistema.
+        /// </summary>
+        public static FirebaseAuthLink UsuarioLogadoAuth;
+        /// <summary>
+        /// Dados gerais do usuario logado no sistema.
+        /// </summary>
+        public static Usuario UsuarioLogadoDados;
 
         public App()
         {
             InitializeComponent();
-
-            MessagingCenter.Subscribe<object>(this, EVENT_RETURN_HOME_PAGE, ReturnHomePage);
-            MessagingCenter.Subscribe<object>(this, EVENT_LOGOUT, SetLoginPageAsRootPage);
-            MessagingCenter.Subscribe<object>(this, EVENT_LOGIN, SetMainPageAsRootPage);
-
-            MainPage = new NavigationPage(new LoginPage());
-
-            mainPage = new MainPage();
+            UsuarioLogadoAuth = null;
+            UsuarioLogadoDados = null;
+            ConnectionDB.InitializeService();
+            MainPage = new Page();
+            ExisteUsuarioLogado();
         }
 
         protected override void OnStart()
@@ -39,19 +44,37 @@ namespace EstagiosTCC
             // Handle when your app resumes
         }
 
-        private async void ReturnHomePage(object sender)
+        /// <summary>
+        /// Verifica se existe algum usuario logado atraves do Properties e ja realiza a Autenticação 
+        /// e inicia o todos os serviços do Firebase
+        /// </summary>
+        private async void ExisteUsuarioLogado()
         {
-            await mainPage.Detail.Navigation.PopToRootAsync();
-        }
-
-        private void SetLoginPageAsRootPage(object sender)
-        {
-            MainPage = new NavigationPage(new LoginPage());
-        }
-
-        private void SetMainPageAsRootPage(object sender)
-        {
-            MainPage = mainPage;
+            bool flag = false;
+            
+            try
+            {
+                string[] credencial = Util.Properties.GetLogin();
+                
+                if (credencial != null)
+                {
+                    if (await UsuarioDao.EntrarComEmailESenha(credencial[0], credencial[1]))
+                        flag = true;
+                }
+                else
+                    Util.Properties.RemoveLogin();
+            }
+            catch (Exception e)
+            {
+                await Current.MainPage.DisplayAlert("Erro", e.Message, "Ok");
+            }
+            finally
+            {
+                if (flag)
+                    MainPage = new MenuPrincipalPage();
+                else
+                    MainPage = new NavigationPage(new IntroducaoPage());
+            }
         }
     }
 }
