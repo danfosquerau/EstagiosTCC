@@ -4,9 +4,9 @@
              x:Class="EstagiosTCC.View.CadastrarEstagioPage"
              Title="{Binding Title}">
 <ContentPage.ToolbarItems>
-    <ToolbarItem x:Name="tbiSalvar" Text="Salvar" Command="{Binding SalvarCommand}"/>
-    <ToolbarItem x:Name="tbiCancelar" Text="Cancelar" Command="{Binding CancelarCommand}"/>
-    <ToolbarItem x:Name="tbiLimpar" Text="Limpar Campos" Command="{Binding LimparCommand}"/>
+    <ToolbarItem x:Name="tbiSalvar" IconImageSource="save.png" Command="{Binding SalvarCommand}"/>
+    <ToolbarItem x:Name="tbiCancelar" IconImageSource="remove.png" Command="{Binding CancelarCommand}"/>
+    <ToolbarItem x:Name="tbiLimpar" IconImageSource="clear.png" Command="{Binding LimparCommand}"/>
 </ContentPage.ToolbarItems>
 <ContentPage.Content>
     <StackLayout>
@@ -217,18 +217,24 @@
                    Margin="0,10,0,0"/>
             
             <StackLayout Orientation="Horizontal">
-                <Button x:Name="btnEscolherAnexo"
-                        Command="{Binding EscolherAnexoCommand}"
-                        Text="Escolher Anexo"
-                        HorizontalOptions="CenterAndExpand" />
-                <Button x:Name="btnTirarFoto"
-                        Command="{Binding TirarFotoCommand}"
-                        Text="Camera"
-                        HorizontalOptions="CenterAndExpand" />
-                <Button x:Name="btnRemoverAnexo"
-                        Command="{Binding RemoverAnexoCommand}"
-                        Text="Remover Anexo"
-                        HorizontalOptions="CenterAndExpand" />
+                <ImageButton x:Name="btnEscolherAnexo"
+                             Source="attachment.png"
+                             Command="{Binding EscolherAnexoCommand}"
+                             HorizontalOptions="CenterAndExpand"
+                             HeightRequest="48"
+                             WidthRequest="48"/>
+                <ImageButton x:Name="btnTirarFoto"
+                             Source="camera.png"
+                             Command="{Binding TirarFotoCommand}"
+                             HorizontalOptions="CenterAndExpand"
+                             HeightRequest="48"
+                             WidthRequest="48"/>
+                <ImageButton x:Name="btnRemoverAnexo"
+                             Source="remove.png"
+                             Command="{Binding RemoverAnexoCommand}"
+                             HorizontalOptions="CenterAndExpand"
+                             HeightRequest="48"
+                             WidthRequest="48"/>
             </StackLayout>
 
             <Image x:Name="imgAnexo"

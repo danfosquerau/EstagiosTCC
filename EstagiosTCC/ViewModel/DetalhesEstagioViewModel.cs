@@ -12,6 +12,7 @@ namespace EstagiosTCC.ViewModel
     public class DetalhesEstagioViewModel : BaseViewModel
     {
         public ICommand OpenWebCommand { get; set; }
+        public ICommand FavoritoCommand { get; set; }
 
         public ObservableCollection<Curso> ListaCursosEstagio { get; set; }
 
@@ -38,6 +39,7 @@ namespace EstagiosTCC.ViewModel
             Title = "Detalhes do Estágio";
             Estagio = estagio;
             CarregarRecursos();
+            FavoritoCommand = new Command(() => OnFavorito());
             OpenWebCommand = new Command(() => Launcher.OpenAsync(
                 new Uri(string.IsNullOrEmpty(Estagio.LinkParaInformacoes) ? "https://xamarin.com/platform" : Estagio.LinkParaInformacoes))); ;
         }
@@ -60,6 +62,38 @@ namespace EstagiosTCC.ViewModel
                         }
                     }
                 }
+            }
+        }
+    
+        private void OnFavorito()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                if (App.UsuarioLogadoDados.Favoritos.Contains(Estagio.Codigo))
+                {
+                    App.UsuarioLogadoDados.Favoritos.Remove(Estagio.Codigo);
+                    UsuarioDao.Favorito();
+                    Application.Current.MainPage.DisplayAlert("Removido","Estágio removido dos favoritos.","Ok");
+                }
+                else
+                {
+                    App.UsuarioLogadoDados.Favoritos.Add(Estagio.Codigo);
+                    UsuarioDao.Favorito();
+                    Application.Current.MainPage.DisplayAlert("Adicionado", "Estágio adicionado aos favoritos.", "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

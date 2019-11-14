@@ -172,5 +172,16 @@
   <ItemGroup>
     <BundleResource Include="Resources\remove.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\attachment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\favorite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\save.png" />
+  </ItemGroup>
 </Project>

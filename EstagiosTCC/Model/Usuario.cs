@@ -10,6 +10,7 @@ namespace EstagiosTCC.Model
         public string Senha { get; set; }
         public string FotoPerfilUrl { get; set; }
         public List<string> MeusEstagios { get; set; }
+        public List<string> Favoritos { get; set; }
 
         public Usuario()
         {
@@ -19,6 +20,7 @@ namespace EstagiosTCC.Model
             Senha = string.Empty;
             FotoPerfilUrl = string.Empty;
             MeusEstagios = new List<string>();
+            Favoritos = new List<string>();
         }
     }
 }

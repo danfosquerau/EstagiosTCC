@@ -130,14 +130,18 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="attachment.png" />
     <Content Include="camera.png" />
+    <Content Include="clear.png" />
     <Content Include="delete.png" />
+    <Content Include="favorite.png" />
     <Content Include="gallery.png" />
     <Content Include="img_profile.jpg" />
     <Content Include="logo_without_writing.png" />
     <Content Include="logo_with_writing.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="remove.png" />
+    <Content Include="save.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

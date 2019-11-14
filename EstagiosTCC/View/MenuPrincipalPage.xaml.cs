@@ -18,6 +18,7 @@ namespace EstagiosTCC.View
                 new MainPageMenuItem {Codigo = MenuItemTipo.NovoEstagio, Titulo="Novo Estágio" },
                 new MainPageMenuItem {Codigo = MenuItemTipo.BuscarEstagio, Titulo="Buscar Estágios" },
                 new MainPageMenuItem {Codigo = MenuItemTipo.MeusEstagios, Titulo="Meus Estágios" },
+                new MainPageMenuItem {Codigo = MenuItemTipo.Favoritos, Titulo="Favoritos" },
                 new MainPageMenuItem {Codigo = MenuItemTipo.MeuPerfil, Titulo = "Meu Perfil" },
                 new MainPageMenuItem {Codigo = MenuItemTipo.Sobre, Titulo="Sobre" },
                 new MainPageMenuItem {Codigo = MenuItemTipo.Sair, Titulo="Sair" }
@@ -63,6 +64,9 @@ namespace EstagiosTCC.View
                 case (int)MenuItemTipo.MeusEstagios:
                     newPage = new MeusEstagiosPage();
                     break;
+                case (int)MenuItemTipo.Favoritos:
+                    newPage = new FavoritosPage();
+                    break;
             }
             
             if (newPage != null && Detail != newPage)
@@ -101,6 +105,7 @@ namespace EstagiosTCC.View
         Inicio,
         NovoEstagio,
         BuscarEstagio,
+        Favoritos,
         MeusEstagios,
         MeuPerfil,
         Sobre,

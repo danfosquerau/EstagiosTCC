@@ -10,7 +10,7 @@
         <StackLayout HorizontalOptions="CenterAndExpand"
                      VerticalOptions="FillAndExpand"
                      WidthRequest="{OnPlatform Default=300, UWP=500}"
-                     Margin="0,20,0,60"
+                     Margin="0,20,0,0"
                      Spacing="20">
             <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
                          Spacing="0">
@@ -28,16 +28,17 @@
                     Text="Todos os estágios"
                     Clicked="btnTodosEstagios_Clicked"
                     HorizontalOptions="EndAndExpand"
-                    WidthRequest="150"
                     CornerRadius="20"
                     BackgroundColor="#5cb85c"
-                    TextColor="White"/>
+                    TextColor="White"
+                    Padding="20,6,20,6"/>
             <ListView x:Name="lvwEstagios"
                       ItemsSource="{Binding ListaEstagios}"
                       ItemTapped="lvwEstagios_ItemTapped"
                       CachingStrategy="RecycleElement"
                       HasUnevenRows="True"
-                      VerticalOptions="FillAndExpand">
+                      VerticalOptions="FillAndExpand"
+                      VerticalScrollBarVisibility="Never">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

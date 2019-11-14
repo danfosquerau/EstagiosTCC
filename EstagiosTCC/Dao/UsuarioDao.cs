@@ -132,5 +132,11 @@ namespace EstagiosTCC.Dao
                 throw new Exception(e.Message);
             }
         }
+    
+        public static async void Favorito()
+        {
+            await ConnectionDB.Database.Child("Usuario")
+                .Child(App.UsuarioLogadoDados.Codigo).PutAsync(App.UsuarioLogadoDados);
+        }
     }
 }
