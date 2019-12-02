@@ -53,6 +53,7 @@ namespace EstagiosTCC.Util
         public static void Logout()
         {
             Authentication.Dispose();
+
             InitializeService();
         }
     }

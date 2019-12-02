@@ -12,12 +12,12 @@ namespace EstagiosTCC.Util
         public static async Task<MediaFile> GetPhotoFromGallery()
         {
             bool response = await GetPermission();
-            
+
             if (!response)
                 throw new Exception("Permissão negada!");
 
             await CrossMedia.Current.Initialize();
-            
+
             if (!CrossMedia.Current.IsPickPhotoSupported)
                 throw new Exception("Ação não suportada!");
 
@@ -36,12 +36,12 @@ namespace EstagiosTCC.Util
         public static async Task<MediaFile> GetPhotoFromCamera()
         {
             bool response = await GetPermission();
-            
+
             if (!response)
                 throw new Exception("Permissão negada!");
 
             await CrossMedia.Current.Initialize();
-            
+
             if (!CrossMedia.Current.IsTakePhotoSupported || !CrossMedia.Current.IsCameraAvailable)
                 throw new Exception("Ação não suportada!");
 
@@ -62,11 +62,12 @@ namespace EstagiosTCC.Util
         {
             var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
             var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-            
+
             if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
             {
                 var results = await CrossPermissions.Current
                     .RequestPermissionsAsync(new[] { Permission.Camera, Permission.Storage });
+                
                 cameraStatus = results[Permission.Camera];
                 storageStatus = results[Permission.Storage];
             }

@@ -13,6 +13,7 @@ namespace EstagiosTCC.Util
             get { return _isBusy; }
             set { SetProperty(ref _isBusy, value); }
         }
+        
         private string _title = string.Empty;
         public string Title
         {
@@ -28,6 +29,7 @@ namespace EstagiosTCC.Util
 
             backingStore = value;
             onChanged?.Invoke();
+            
             OnPropertyChanged(propertyName);
 
             return true;
@@ -39,7 +41,7 @@ namespace EstagiosTCC.Util
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             var changed = PropertyChanged;
-            
+
             if (changed == null)
                 return;
 

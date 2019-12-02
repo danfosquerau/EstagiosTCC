@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EstagiosTCC.Model
 {
@@ -9,6 +10,7 @@ namespace EstagiosTCC.Model
         public List<string> CodigosCursos { get; set; }
         public string AnexoUrl { get; set; }
         public string Empresa { get; set; }
+        public string LogoEmpresa { get; set; }
         public string Setor { get; set; }
         public string Endereco { get; set; }
         public string DescricaoDasAtividades { get; set; }
@@ -17,7 +19,7 @@ namespace EstagiosTCC.Model
         public string OutrosAuxilios { get; set; }
         public string Contato { get; set; }
         public string LinkParaInformacoes { get; set; }
-        public string UltimaAtualizacao { get; set; }
+        public DateTime UltimaAtualizacao { get; set; }
 
         public Estagio()
         {
@@ -26,6 +28,7 @@ namespace EstagiosTCC.Model
             CodigosCursos = new List<string>();
             AnexoUrl = string.Empty;
             Empresa = string.Empty;
+            LogoEmpresa = string.Empty;
             Setor = string.Empty;
             Endereco = string.Empty;
             DescricaoDasAtividades = string.Empty;
@@ -34,7 +37,7 @@ namespace EstagiosTCC.Model
             OutrosAuxilios = string.Empty;
             Contato = string.Empty;
             LinkParaInformacoes = string.Empty;
-            UltimaAtualizacao = string.Empty;
+            UltimaAtualizacao = DateTime.Now;
         }
     }
 }

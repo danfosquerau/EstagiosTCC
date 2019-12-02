@@ -1,5 +1,6 @@
 ﻿using EstagiosTCC.Util;
 using EstagiosTCC.View;
+using EstagiosTCC.View.Usuario;
 using System;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -29,9 +30,10 @@ namespace EstagiosTCC.ViewModel
                 return;
 
             IsBusy = true;
-            
-            try 
-            { 
+
+            try
+            {
+
             }
             catch (Exception ex)
             {
@@ -49,9 +51,10 @@ namespace EstagiosTCC.ViewModel
                 return;
 
             IsBusy = true;
-            
+
             try
             {
+
             }
             catch (Exception ex)
             {
@@ -69,7 +72,7 @@ namespace EstagiosTCC.ViewModel
                 return;
 
             IsBusy = true;
-            
+
             try
             {
                 Application.Current.MainPage.Navigation.PushAsync(new EntrarPage());
@@ -92,7 +95,7 @@ namespace EstagiosTCC.ViewModel
             IsBusy = true;
             try
             {
-                Application.Current.MainPage.Navigation.PushAsync(new CadastroUsuarioPage());
+                Application.Current.MainPage.Navigation.PushAsync(new CadastrarUsuarioPage());
             }
             catch (Exception ex)
             {

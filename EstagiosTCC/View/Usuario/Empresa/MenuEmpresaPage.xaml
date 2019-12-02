@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:local="clr-namespace:EstagiosTCC.View.Usuario.Empresa"
+                  x:Class="EstagiosTCC.View.Usuario.Empresa.MenuEmpresaPage">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu" 
+                     Padding="0">
+            <StackLayout Spacing="0" Padding="0">
+                <Grid BackgroundColor="{StaticResource ColorAccent}" 
+                      RowSpacing="0" ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="15" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="imgLogo"
+                           Grid.Row="1" Grid.Column="1"
+                           HorizontalOptions="Start"
+                           Source="{OnPlatform Default=sem_imagem.png, UWP=Resources/sem_imagem.png}"
+                           Aspect="AspectFit"/>
+                    <Label Grid.Row="2" Grid.Column="1"
+                           x:Name="lblEmpresa"
+                           Text="Empresa" 
+                           FontSize="18"
+                           TextColor="Black" />
+                    <Label Grid.Row="3" Grid.Column="1" 
+                           x:Name="lblEmail"
+                           Text="email@email.com" 
+                           FontSize="14"
+                           TextColor="Gray" />
+                </Grid>
+                <ListView x:Name="lvwMenu"
+                          HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10">
+                                    <Label Text="{Binding Titulo}" 
+                                           FontSize="20"
+                                           TextColor="Black"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <local:InicioPage />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

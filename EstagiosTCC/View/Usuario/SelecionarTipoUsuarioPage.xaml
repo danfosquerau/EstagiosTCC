@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EstagiosTCC.View.Usuario.SelecionarTipoUsuarioPage"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout Spacing="0">
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"/>
+
+            <StackLayout WidthRequest="{OnPlatform Default=330, UWP=600}"
+                         Spacing="0"
+                         Margin="0,20,0,60"
+                         VerticalOptions="CenterAndExpand">
+
+                <Label HorizontalOptions="Center"
+                       FontSize="30" TextColor="Black" FontAttributes="Bold" 
+                       HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="O que você faz "/>
+                                <Span Text="&#10;"/>
+                                <Span Text="e"/>
+                                <Span Text="&#10;"/>
+                                <Span Text="qual seu objetivo?"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <StackLayout Orientation="Horizontal" 
+                             HorizontalOptions="Center"
+                             Margin="0,20,0,0">
+                    <Button x:Name="btnEmpresa" 
+                            Text="Tenho uma empresa&#10;e&#10;quero anunciar&#10;estágios" 
+                            HeightRequest="{OnPlatform Default=128, UWP=280}"
+                            WidthRequest="{OnPlatform Default=128, UWP=280}"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource ColorPrimary}"
+                            TextColor="Black"
+                            CornerRadius="20"
+                            Margin="12,0,12,0"
+                            BorderWidth="3"
+                            FontSize="15"
+                            Command="{Binding EmpresaCommand}"/>
+                    <Button x:Name="btnEstudante" 
+                            Text="Sou estudante&#10;e&#10;quero buscar&#10;estágios" 
+                            HeightRequest="{OnPlatform Default=128, UWP=280}"
+                            WidthRequest="{OnPlatform Default=128, UWP=280}"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource ColorPrimary}"
+                            TextColor="Black"
+                            CornerRadius="20"
+                            Margin="12,0,12,0"
+                            BorderWidth="3"
+                            FontSize="15"
+                            Command="{Binding EstudanteCommand}"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

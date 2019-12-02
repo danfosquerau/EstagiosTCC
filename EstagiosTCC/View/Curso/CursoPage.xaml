@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="EstagiosTCC.View.Curso.CursoPage">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Fill">
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="txtNome" Text="{Binding Curso.Nome}"
+                       Keyboard="Text"
+                       HorizontalOptions="FillAndExpand"
+                       IsSpellCheckEnabled="True"
+                       IsTextPredictionEnabled="True"
+                       Placeholder="Nome do Curso"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnSalvar" Command="{Binding SalvarCommand}" Text="Salvar"/>
+                <Button x:Name="btnLimpar" Command="{Binding LimparCommand}" Text="Limpar" />
+            </StackLayout>
+            <ScrollView>
+                <ListView x:Name="lvwCursos" ItemsSource="{Binding ListaCursos}"
+                      SelectedItem="{Binding Curso}"
+                      CachingStrategy="RecycleElement"
+                      HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="5">
+                                    <Label Text="{Binding Codigo}" 
+                                           IsVisible="False"
+                                           FontSize="Micro"
+                                           TextColor="Gray"/>
+                                    <Label Text="{Binding Nome}"
+                                           FontSize="Medium"
+                                           TextColor="Black"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

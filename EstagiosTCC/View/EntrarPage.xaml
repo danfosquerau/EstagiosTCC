@@ -1,13 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
              x:Class="EstagiosTCC.View.EntrarPage"
              NavigationPage.HasNavigationBar="False"
              Title="{Binding Title}"
-             BackgroundColor="LightGray">
+             BackgroundColor="#F0F0F0">
     <ContentPage.Content>
         <StackLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}"
@@ -15,8 +12,8 @@
             <ScrollView HorizontalOptions="CenterAndExpand" 
                         VerticalScrollBarVisibility="Never">
                 <StackLayout WidthRequest="{OnPlatform Default=300, UWP=400}">
-                    
-                    <Image Source="logo_without_writing.png"
+
+                    <Image Source="{OnPlatform Default=logo_sem_escrita.png, UWP=Resources/logo_sem_escrita.png}"
                        WidthRequest="120"
                        HeightRequest="120"
                        Aspect="AspectFit"

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EstagiosTCC.View.Estagio.DetalhesEstagioPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="tbiFavoritos" IconImageSource="{OnPlatform Default=favorito.png, UWP=Resources/favorito.png}" Command="{Binding FavoritoCommand}" />
+</ContentPage.ToolbarItems>
+<ContentPage.Content>
+    <StackLayout>
+    <ScrollView VerticalScrollBarVisibility="Never">
+    <StackLayout Spacing="0">
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"/>
+        <StackLayout HorizontalOptions="CenterAndExpand"
+                     WidthRequest="{OnPlatform Default=300, UWP=500}"
+                     Margin="0,20,0,60"
+                     Spacing="0">
+            
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0">
+                <Label Text="Empresa:" 
+                       VerticalTextAlignment="Center" 
+                       WidthRequest="100"/>
+                <Label x:Name="txtEmpresa"
+                       Text="{Binding Estagio.Empresa}"
+                       HorizontalOptions="FillAndExpand"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,10,0,0">
+                <Label Text="Setor:" 
+                       VerticalTextAlignment="Center"
+                       WidthRequest="100"/>
+                <Label x:Name="txtSetor"
+                       Text="{Binding Estagio.Setor}"
+                       HorizontalOptions="FillAndExpand"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,10,0,0">
+                <Label Text="Endereco:" 
+                       VerticalTextAlignment="Center"
+                       WidthRequest="100"/>
+                <Label x:Name="txtEndereco"
+                       Text="{Binding Estagio.Endereco}"
+                       HorizontalOptions="FillAndExpand"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,10,0,0">
+                <Label Text="Horario:" 
+                       VerticalTextAlignment="Center"
+                       WidthRequest="100"/>
+                <Label x:Name="txtHorario"
+                       Text="{Binding Estagio.Horario}"
+                       HorizontalOptions="FillAndExpand"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,10,0,0">
+                <Label Text="Pagamento:" 
+                       VerticalTextAlignment="Center"
+                       WidthRequest="100"/>
+                <Label x:Name="txtPagamento"
+                       Text="{Binding Estagio.Pagamento}"
+                       HorizontalOptions="FillAndExpand"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+        
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,10,0,0">
+                <Label Text="OutrosAuxilios:" 
+                       VerticalTextAlignment="Center"
+                       WidthRequest="100"/>
+                <Label x:Name="txtOutrosAuxilios"
+                       Text="{Binding Estagio.OutrosAuxilios}"
+                       HorizontalOptions="FillAndExpand"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,10,0,0">
+                <Label Text="Contato:" 
+                       VerticalTextAlignment="Center"
+                       WidthRequest="100"/>
+                <Label x:Name="txtContato"
+                       Text="{Binding Estagio.Contato}"
+                       HorizontalOptions="FillAndExpand"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+
+            <Button x:Name="btnLinkParaInformacoes"
+                    Text="Clique aqui para saber mais"
+                    Command="{Binding OpenWebCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    CornerRadius="20"
+                    BackgroundColor="Transparent"
+                    BorderWidth="3"
+                    BorderColor="#5bc0de"
+                    TextColor="#5bc0de"/>
+
+            <Label Text="Descrição das Atividades:" 
+                   VerticalTextAlignment="Center"
+                   Margin="0,10,0,0"/>
+            <Label x:Name="txtDescricaoDasAtividades"
+                   Text="{Binding Estagio.DescricaoDasAtividades}"
+                   HorizontalOptions="FillAndExpand"
+                   FontAttributes="Bold"/>
+
+            <Grid HorizontalOptions="Fill" VerticalOptions="Fill"
+                  Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <StackLayout Grid.Row="0" Grid.Column="0">
+                    <Label HorizontalOptions="FillAndExpand" 
+                           Text="Cursos relacionados ao estágio:"/>
+                    <ListView x:Name="lvwCursosDoEstagio"
+                              ItemsSource="{Binding ListaCursosEstagio}"
+                              CachingStrategy="RecycleElement"
+                              HasUnevenRows="True"
+                              IsEnabled="False">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="5">
+                                        <Label Text="{Binding Codigo}"
+                                               IsVisible="False"/>
+                                        <Label Text="{Binding Nome}"
+                                               FontSize="Small"
+                                               TextColor="Black"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Grid>
+
+            <Label HorizontalOptions="FillAndExpand" 
+                   Text="ANEXO"
+                   Margin="0,10,0,0"/>
+
+            <Image x:Name="imgAnexo"
+                   Source="{Binding AnexoUrl}"
+                   BackgroundColor="Gray"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   Scale="1"
+                   Margin="0,10,0,0"/>
+        </StackLayout>            
+    </StackLayout>
+    </ScrollView>
+    </StackLayout>
+</ContentPage.Content>
+</ContentPage>

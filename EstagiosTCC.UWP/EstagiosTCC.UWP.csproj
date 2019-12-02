@@ -130,18 +130,19 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="attachment.png" />
-    <Content Include="camera.png" />
-    <Content Include="clear.png" />
-    <Content Include="delete.png" />
-    <Content Include="favorite.png" />
-    <Content Include="gallery.png" />
-    <Content Include="img_profile.jpg" />
-    <Content Include="logo_without_writing.png" />
-    <Content Include="logo_with_writing.png" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="remove.png" />
-    <Content Include="save.png" />
+    <Content Include="Resources\anexo.png" />
+    <Content Include="Resources\camera.png" />
+    <Content Include="Resources\cancelar.png" />
+    <Content Include="Resources\deletar.png" />
+    <Content Include="Resources\favorito.png" />
+    <Content Include="Resources\galeria.png" />
+    <Content Include="Resources\limpar.png" />
+    <Content Include="Resources\logo_com_escrita.png" />
+    <Content Include="Resources\logo_sem_escrita.png" />
+    <Content Include="Resources\logo_sem_escrita_branco.png" />
+    <Content Include="Resources\salvar.png" />
+    <Content Include="Resources\sem_imagem.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -157,7 +158,7 @@
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.0.1.5</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.3.0.947036" />
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.991211" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>

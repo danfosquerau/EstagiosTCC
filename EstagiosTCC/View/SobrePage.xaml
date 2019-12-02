@@ -18,11 +18,11 @@
                 <StackLayout Orientation="Horizontal" 
                              HorizontalOptions="Center" 
                              VerticalOptions="Center">
-                    <ContentView Padding="0,40,0,40" 
+                    <ContentView Padding="0,20,0,20" 
                                  VerticalOptions="FillAndExpand">
-                        <Image Source="logo_with_writing.png" 
+                        <Image Source="{OnPlatform Default=logo_com_escrita.png, UWP=Resources/logo_com_escrita.png}" 
                                VerticalOptions="Center" 
-                               HeightRequest="64" />
+                               HeightRequest="114" />
                     </ContentView>
                 </StackLayout>
             </StackLayout>
@@ -34,11 +34,11 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <FormattedString.Spans>
-                                    <Span Text="{Binding AppName}" 
+                                    <Span Text="{Binding NomeAplicativo}" 
                                           FontAttributes="Bold" 
                                           FontSize="22" />
                                     <Span Text=" " />
-                                    <Span Text="{Binding AppVersion}" 
+                                    <Span Text="{Binding Versao}" 
                                           ForegroundColor="{StaticResource LightTextColor}" />
                                 </FormattedString.Spans>
                             </FormattedString>

@@ -17,11 +17,13 @@ namespace EstagiosTCC.Dao
             {
                 //CADASTRA AS INFORMAÇÕES INICIAIS DO CURSO
                 var postCurso = await ConnectionDB.Database.Child("Curso").PostAsync(curso);
+                
                 //PEGA A KEY DO REGISTRO DO FIREBASE E SETA COMO ID DO CURSO
                 curso.Codigo = postCurso.Key;
+                
                 //PUT(UPDATE) NAS INFORMAÇÕES
                 await ConnectionDB.Database.Child("Curso").Child(postCurso.Key).PutAsync(curso);
-                
+
                 return true;
             }
             catch (FirebaseException e)
@@ -36,7 +38,7 @@ namespace EstagiosTCC.Dao
             {
                 //PUT(UPDATE) NAS INFORMAÇÕES
                 await ConnectionDB.Database.Child("Curso").Child(curso.Codigo).PutAsync(curso);
-                
+
                 return true;
             }
             catch (FirebaseException e)

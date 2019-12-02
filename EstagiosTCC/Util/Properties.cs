@@ -21,7 +21,7 @@ namespace EstagiosTCC.Util
         {
             if (Application.Current.Properties.ContainsKey("Email"))
                 Application.Current.Properties.Remove("Email");
-            
+
             if (Application.Current.Properties.ContainsKey("Password"))
                 Application.Current.Properties.Remove("Password");
         }

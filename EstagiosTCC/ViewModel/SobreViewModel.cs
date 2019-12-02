@@ -10,24 +10,25 @@ namespace EstagiosTCC.ViewModel
     {
         public ICommand OpenWebCommand { get; set; }
 
-        private string _appName = string.Empty;
-        public string AppName
+        private string _nomeAplicativo = string.Empty;
+        public string NomeAplicativo
         {
-            get { return _appName; }
-            set { SetProperty(ref _appName, value); }
+            get { return _nomeAplicativo; }
+            set { SetProperty(ref _nomeAplicativo, value); }
         }
-        private string _appVersion = string.Empty;
-        public string AppVersion
+        
+        private string _versao = string.Empty;
+        public string Versao
         {
-            get { return _appVersion; }
-            set { SetProperty(ref _appVersion, value); }
+            get { return _versao; }
+            set { SetProperty(ref _versao, value); }
         }
 
         public SobreViewModel()
         {
             Title = "Sobre";
-            AppName = "Estágios TCC";
-            AppVersion = "1.0beta";
+            NomeAplicativo = "Estágios";
+            Versao = "1.0";
 
             OpenWebCommand = new Command(() => Launcher.TryOpenAsync(new Uri("https://xamarin.com/platform")));
         }

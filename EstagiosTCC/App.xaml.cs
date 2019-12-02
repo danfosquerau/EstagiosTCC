@@ -2,6 +2,9 @@
 using EstagiosTCC.Model;
 using EstagiosTCC.Util;
 using EstagiosTCC.View;
+using EstagiosTCC.View.Usuario;
+using EstagiosTCC.View.Usuario.Empresa;
+using EstagiosTCC.View.Usuario.Estudante;
 using Firebase.Auth;
 using System;
 using Xamarin.Forms;
@@ -14,18 +17,29 @@ namespace EstagiosTCC
         /// Dados de autenticação usuário logado no sistema.
         /// </summary>
         public static FirebaseAuthLink UsuarioLogadoAuth;
+        public static Usuario UsuarioLogado;
         /// <summary>
         /// Dados gerais do usuario logado no sistema.
         /// </summary>
-        public static Usuario UsuarioLogadoDados;
+        public static Estudante EstudanteDados;
+        /// <summary>
+        /// Dados gerais do usuario logado no sistema.
+        /// </summary>
+        public static Empresa EmpresaDados;
 
         public App()
         {
             InitializeComponent();
+
             UsuarioLogadoAuth = null;
-            UsuarioLogadoDados = null;
+            UsuarioLogado = null;
+            EstudanteDados = null;
+            EmpresaDados = null;
+
             ConnectionDB.InitializeService();
+
             MainPage = new Page();
+
             ExisteUsuarioLogado();
         }
 
@@ -51,11 +65,11 @@ namespace EstagiosTCC
         private async void ExisteUsuarioLogado()
         {
             bool flag = false;
-            
+
             try
             {
                 string[] credencial = Util.Properties.GetLogin();
-                
+
                 if (credencial != null)
                 {
                     if (await UsuarioDao.EntrarComEmailESenha(credencial[0], credencial[1]))
@@ -71,7 +85,20 @@ namespace EstagiosTCC
             finally
             {
                 if (flag)
-                    MainPage = new MenuPrincipalPage();
+                    switch (UsuarioLogado.Tipo)
+                    {
+                        case Tipo.NaoDefinido:
+                            _ = Current.MainPage.Navigation.PushModalAsync(new SelecionarTipoUsuarioPage());
+                            break;
+                        case Tipo.Empresa:
+                            EmpresaDados = await EmpresaDao.BuscarPeloCodigo(UsuarioLogadoAuth.User.LocalId);
+                            Current.MainPage = new MenuEmpresaPage();
+                            break;
+                        case Tipo.Estudante:
+                            EstudanteDados = await EstudanteDao.BuscarPeloCodigo(UsuarioLogadoAuth.User.LocalId);
+                            Current.MainPage = new MenuEstudantePage();
+                            break;
+                    }
                 else
                     MainPage = new NavigationPage(new IntroducaoPage());
             }

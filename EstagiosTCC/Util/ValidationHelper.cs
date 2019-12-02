@@ -12,10 +12,11 @@ namespace EstagiosTCC.Util
         public static bool IsFormValid(object model, Page page)
         {
             HideValidationFields(model, page);
+
             var errors = new List<ValidationResult>();
             var context = new ValidationContext(model);
             bool isValid = Validator.TryValidateObject(model, context, errors, true);
-            
+
             if (!isValid)
                 ShowValidationFields(errors, model, page);
 
@@ -29,13 +30,14 @@ namespace EstagiosTCC.Util
                 return;
 
             var properties = GetValidatablePropertyNames(model);
-            
+
             foreach (var propertyName in properties)
             {
                 var errorControlName =
                 $"{propertyName.Replace(".", "_")}{validationLabelSuffix}";
+                
                 var control = page.FindByName<Label>(errorControlName);
-               
+
                 if (control != null)
                     control.IsVisible = false;
             }
@@ -51,9 +53,10 @@ namespace EstagiosTCC.Util
             {
                 var memberName = $"{model.GetType().Name}_{error.MemberNames.FirstOrDefault()}";
                 memberName = memberName.Replace(".", "_");
+               
                 var errorControlName = $"{memberName}{validationLabelSuffix}";
                 var control = page.FindByName<Label>(errorControlName);
-                
+
                 if (control != null)
                 {
                     control.Text = $"{error.ErrorMessage}{Environment.NewLine}";
@@ -66,7 +69,7 @@ namespace EstagiosTCC.Util
         {
             var validatableProperties = new List<string>();
             var properties = GetValidatableProperties(model);
-            
+
             foreach (var propertyInfo in properties)
             {
                 var errorControlName = $"{propertyInfo.DeclaringType.Name}.{propertyInfo.Name}";
