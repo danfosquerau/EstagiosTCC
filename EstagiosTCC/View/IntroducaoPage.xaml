@@ -4,7 +4,7 @@
              x:Class="EstagiosTCC.View.IntroducaoPage"
              NavigationPage.HasNavigationBar="False"
              Title="{Binding Title}"
-             BackgroundColor="{StaticResource ColorPrimary}">
+             BackgroundColor="{StaticResource ColorAccent}">
     <ContentPage.Content>
         <StackLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}"
@@ -15,7 +15,7 @@
                         VerticalScrollBarVisibility="Never">
                 <StackLayout WidthRequest="{OnPlatform Default=300, UWP=400}">
 
-                    <Image Source="{OnPlatform Default=logo_sem_escrita_branco.png, UWP= Resources/logo_sem_escrita_branco.png}" 
+                    <Image Source="{OnPlatform Default=logo_com_escrita.png, UWP= Resources/logo_com_escrita.png}" 
                        WidthRequest="200"
                        HeightRequest="200"
                        Aspect="AspectFit"
@@ -29,6 +29,7 @@
                             CornerRadius="20"/>
 
                     <Button Text="Entrar com o Google"
+                            IsVisible="False"
                             HorizontalOptions="FillAndExpand"
                             Command="{Binding EntrarComGoogleCommand}"
                             BackgroundColor="#DB4437"

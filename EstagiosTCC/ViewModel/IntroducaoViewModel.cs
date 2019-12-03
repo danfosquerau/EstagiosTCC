@@ -1,4 +1,5 @@
 ﻿using EstagiosTCC.Util;
+using EstagiosTCC.Util.OAuth;
 using EstagiosTCC.View;
 using EstagiosTCC.View.Usuario;
 using System;
@@ -33,7 +34,7 @@ namespace EstagiosTCC.ViewModel
 
             try
             {
-
+                Application.Current.MainPage.Navigation.PushAsync(new FacebookLoginPage());
             }
             catch (Exception ex)
             {
@@ -54,7 +55,7 @@ namespace EstagiosTCC.ViewModel
 
             try
             {
-
+                Application.Current.MainPage.Navigation.PushAsync(new GoogleLoginPage());
             }
             catch (Exception ex)
             {

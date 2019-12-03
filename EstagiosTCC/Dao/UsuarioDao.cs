@@ -1,5 +1,6 @@
 ﻿using EstagiosTCC.Model;
 using EstagiosTCC.Util;
+using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Database.Query;
 using System;
@@ -20,10 +21,11 @@ namespace EstagiosTCC.Dao
                 if (App.UsuarioLogadoAuth == null)
                     return false;
 
-                Usuario usuario = new Usuario();
-
-                //PEGA O ID DO REGISTRO DO FIREBASE DO USUARIO
-                usuario.Codigo = App.UsuarioLogadoAuth.User.LocalId;
+                Usuario usuario = new Usuario
+                {
+                    //PEGA O ID DO REGISTRO DO FIREBASE DO USUARIO
+                    Codigo = App.UsuarioLogadoAuth.User.LocalId
+                };
 
                 ConnectionDB.InitializeData(App.UsuarioLogadoAuth.FirebaseToken);
 
@@ -69,6 +71,41 @@ namespace EstagiosTCC.Dao
                 ConnectionDB.InitializeData(App.UsuarioLogadoAuth.FirebaseToken);
 
                 App.UsuarioLogado = await BuscarPeloCodigo(App.UsuarioLogadoAuth.User.LocalId);
+
+                return true;
+            }
+            catch (FirebaseException e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static async Task<bool> EntrarComOAuth(FirebaseAuthType authType, string accessToken)
+        {
+            try
+            {
+                App.UsuarioLogadoAuth = await ConnectionDB.Authentication
+                    .SignInWithOAuthAsync(authType, accessToken);
+
+                if (App.UsuarioLogadoAuth == null)
+                    return false;
+
+                ConnectionDB.InitializeData(App.UsuarioLogadoAuth.FirebaseToken);
+
+                App.UsuarioLogado = await BuscarPeloCodigo(App.UsuarioLogadoAuth.User.LocalId);
+
+                if (App.UsuarioLogado == null)
+                {
+                    Usuario usuario = new Usuario()
+                    {
+                        Codigo = App.UsuarioLogadoAuth.User.LocalId,
+                    };
+                    //CADASTRA AS INFORMAÇÕES DO USUARIO NO BANCO
+                    await ConnectionDB.Database.Child("Usuario").Child(usuario.Codigo).PostAsync(usuario);
+                    await ConnectionDB.Database.Child("Usuario").Child(usuario.Codigo).PutAsync(usuario);
+
+                    App.UsuarioLogado = await BuscarPeloCodigo(App.UsuarioLogadoAuth.User.LocalId);
+                }
 
                 return true;
             }
