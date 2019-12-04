@@ -81,7 +81,8 @@ namespace EstagiosTCC.Dao
             try
             {
                 return (await ConnectionDB.Database.Child("Estagio").OnceAsync<Estagio>())
-                       .Select(item => item.Object).OrderByDescending(x => x.UltimaAtualizacao).ToList();
+                       .Select(item => item.Object).Where(x => x.Status == Status.Disponivel)
+                       .OrderByDescending(x => x.UltimaAtualizacao).ToList();
             }
             catch (FirebaseException e)
             {

@@ -121,7 +121,7 @@
             </StackLayout>
 
             <Button x:Name="btnLinkParaInformacoes"
-                    Text="Clique aqui para saber mais"
+                    Text="Clique aqui para ir para página web"
                     Command="{Binding OpenWebCommand}"
                     HorizontalOptions="FillAndExpand"
                     CornerRadius="20"
