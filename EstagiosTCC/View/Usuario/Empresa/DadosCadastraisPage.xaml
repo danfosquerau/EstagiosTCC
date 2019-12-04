@@ -69,7 +69,7 @@
                          ="{ConstraintExpression Type=RelativeToView, ElementName=btnGaleria, Property=Y, Factor=1, Constant={OnPlatform UWP=36, Default=41}}"/>
         </RelativeLayout>
         <StackLayout HorizontalOptions="CenterAndExpand"
-                     WidthRequest="{OnPlatform Default=300, UWP=500}"
+                     WidthRequest="{OnPlatform Default=320, UWP=530}"
                      Margin="0,20,0,60"
                      Spacing="0">
             <Label>
@@ -147,22 +147,140 @@
                    IsVisible="False"
                    TextColor="Red"
                    VerticalTextAlignment="Center" /> 
-            
-            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+
+            <StackLayout Orientation="Vertical"
                          Spacing="0"
                          Margin="0,30,0,0">
-                <Label Text="Endereço" 
+                <StackLayout Orientation="Horizontal" Spacing="0">
+                    <Label Text="CEP" 
+                           VerticalTextAlignment="Center"
+                           WidthRequest="{OnPlatform Default=60, UWP=100}"/> 
+                    <Entry x:Name="txtCep"
+                           Text="{Binding Endereco.Cep}"
+                           HorizontalOptions="FillAndExpand"/>
+                    <ImageButton x:Name="btnBuscarCep"
+                                 Aspect="AspectFit"
+                                 WidthRequest="{OnPlatform Default=28,UWP=32}"
+                                 Command="{Binding BuscarEnderecoCommand}"
+                                 Source="{OnPlatform Default=lupa.png, UWP=Resources/lupa.png}"
+                                 BackgroundColor="Transparent"
+                                 VerticalOptions="End"
+                                 Margin="10,0,0,0"/>
+                    <ImageButton x:Name="btnLocalizacao"
+                                 Aspect="AspectFit"
+                                 BackgroundColor="Transparent"
+                                 WidthRequest="{OnPlatform Default=28,UWP=32}"
+                                 Command="{Binding BuscarLocalizacaoCommand}"
+                                 Source="{OnPlatform Default=localizacao.png, UWP=Resources/localizacao.png}"
+                                 VerticalOptions="End">
+                        <ImageButton.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="Android" Value="40,0,20,0"/>
+                                <On Platform="iOS" Value="40,0,20,0"/>
+                                <On Platform="UWP" Value="40,0,150,0"/>
+                            </OnPlatform>
+                        </ImageButton.Margin>
+                    </ImageButton>
+                </StackLayout>
+                <Label x:Name="Endereco_CepError"
+                           IsVisible="False"
+                           TextColor="Red"
+                           VerticalTextAlignment="Center" /> 
+            </StackLayout>
+            
+           <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,30,0,0">
+                <Label Text="Rua" 
                        VerticalTextAlignment="Center" 
                        WidthRequest="100"/>
-                <Entry x:Name="txtEndereco"
-                       Text="{Binding Empresa.Endereco}"
+                <Entry x:Name="txtLogradouro"
+                       Text="{Binding Endereco.Logradouro}"
                        HorizontalOptions="FillAndExpand"/>
             </StackLayout>
-            <Label x:Name="Empresa_EnderecoError"
+            <Label x:Name="Endereco_LogradouroError"
                    IsVisible="False"
                    TextColor="Red"
                    VerticalTextAlignment="Center" /> 
+   
+            <StackLayout Orientation="Horizontal"
+                         Spacing="0"
+                         Margin="0,30,0,0">
+                <StackLayout Orientation="Vertical"
+                             WidthRequest="{OnPlatform Default=170,UWP=280}">
+                    <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                                Spacing="0">
+                        <Label Text="Bairro" 
+                                VerticalTextAlignment="Center"
+                                WidthRequest="100"/> 
+                        <Entry x:Name="txtBairro"
+                                Text="{Binding Endereco.Bairro}"
+                                HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                    <Label x:Name="Endereco_BairroError"
+                        IsVisible="False"
+                        TextColor="Red"
+                       VerticalTextAlignment="Center" /> 
+                </StackLayout>
+                
+                <StackLayout Orientation="Vertical"
+                             WidthRequest="{OnPlatform Default=130,UWP=200}"
+                             Margin="50,0,0,0">
+                    <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                                Spacing="0">
+                        <Label Text="Número" 
+                               VerticalTextAlignment="Center"
+                               WidthRequest="80"/> 
+                        <Entry x:Name="txtUnidade"
+                                Text="{Binding Endereco.Unidade}"
+                                HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                    <Label x:Name="Endereco_UnidadeError"
+                             IsVisible="False"
+                            TextColor="Red"
+                            VerticalTextAlignment="Center" /> 
+                </StackLayout>
+            </StackLayout>
             
+            <StackLayout Orientation="Horizontal"
+                         Spacing="0"
+                         Margin="0,30,0,0">
+                <StackLayout Orientation="Vertical"
+                             WidthRequest="{OnPlatform Default=180,UWP=310}">
+                    <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                                Spacing="0">
+                        <Label Text="Cidade" 
+                                VerticalTextAlignment="Center"
+                                WidthRequest="100"/> 
+                        <Entry x:Name="txtLocalidade"
+                                Text="{Binding Endereco.Localidade}"
+                                HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                    <Label x:Name="Endereco_LocalidadeError"
+                        IsVisible="False"
+                        TextColor="Red"
+                       VerticalTextAlignment="Center" /> 
+                </StackLayout>
+                
+                <StackLayout Orientation="Vertical"
+                             WidthRequest="{OnPlatform Default=90,UWP=170}"
+                             Margin="50,0,0,0">
+                    <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                                Spacing="0">
+                        <Label Text="UF" 
+                               VerticalTextAlignment="Center"
+                               WidthRequest="60"/> 
+                        <Entry x:Name="txtUf"
+                                Text="{Binding Endereco.Uf}"
+                                HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                    <Label x:Name="Endereco_UfError"
+                             IsVisible="False"
+                            TextColor="Red"
+                            VerticalTextAlignment="Center" /> 
+                </StackLayout>
+            </StackLayout>
+
             <StackLayout Orientation="Horizontal" 
                          HorizontalOptions="Center"
                          Margin="0,30,0,0">

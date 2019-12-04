@@ -9,8 +9,7 @@
             <ScrollView VerticalScrollBarVisibility="Never">
                 <StackLayout Spacing="0">
                     <ActivityIndicator IsVisible="{Binding IsBusy}"
-                                       IsRunning="{Binding IsBusy}"
-                                       BackgroundColor="{StaticResource ColorAccent}"/>
+                                       IsRunning="{Binding IsBusy}"/>
                     
                     <StackLayout HorizontalOptions="CenterAndExpand"
                                  WidthRequest="{OnPlatform Default=300, UWP=500}"

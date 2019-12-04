@@ -52,7 +52,7 @@ namespace EstagiosTCC.Dao
             try
             {
                 return (await ConnectionDB.Database.Child("Curso").OnceAsync<Curso>())
-                       .Select(item => item.Object).ToList();
+                       .Select(item => item.Object).OrderBy(x => x.Nome).ToList();
             }
             catch (FirebaseException e)
             {

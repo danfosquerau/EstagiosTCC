@@ -15,6 +15,8 @@ namespace EstagiosTCC.ViewModel.Usuario.Empresa
         public ICommand RemoverFotoCommand { get; set; }
         public ICommand SalvarCommand { get; set; }
         public ICommand CancelarCommand { get; set; }
+        public ICommand BuscarEnderecoCommand { get; set; }
+        public ICommand BuscarLocalizacaoCommand { get; set; }
 
         private readonly Page page;
 
@@ -34,6 +36,13 @@ namespace EstagiosTCC.ViewModel.Usuario.Empresa
             set { SetProperty(ref _empresa, value); }
         }
 
+        private Model.Endereco _endereco;
+        public Model.Endereco Endereco
+        {
+            get { return _endereco; }
+            set { SetProperty(ref _endereco, value); }
+        }
+
         public DadosCadastraisViewModel(Page page)
         {
             Title = "Dados Cadastrais";
@@ -45,11 +54,14 @@ namespace EstagiosTCC.ViewModel.Usuario.Empresa
             RemoverFotoCommand = new Command(() => OnRemoverFoto());
             SalvarCommand = new Command(() => OnSalvar());
             CancelarCommand = new Command(() => OnCancelar());
+            BuscarEnderecoCommand = new Command(() => OnBuscarEndereco());
+            BuscarLocalizacaoCommand = new Command(() => OnBuscarLocalizacao());
         }
 
         private void GetDadosUsuario()
         {
             Empresa = App.EmpresaDados;
+            Endereco = Empresa.Endereco;
 
             ImgLogoEmpresa = Device.RuntimePlatform.Equals(Device.UWP) ? "Resources/sem_imagem.png" : "sem_imagem.png";
 
@@ -141,7 +153,12 @@ namespace EstagiosTCC.ViewModel.Usuario.Empresa
             IsBusy = true;
             try
             {
-                if (!ValidationHelper.IsFormValid(Empresa, page))
+                Empresa.Endereco = Endereco;
+
+                if (!ValidationHelper.IsFormValid(Empresa, page, true))
+                    return;
+
+                if (!ValidationHelper.IsFormValid(Endereco, page, false))
                     return;
 
                 if (Empresa.LogoEmpresa != ImgLogoEmpresa)
@@ -174,6 +191,53 @@ namespace EstagiosTCC.ViewModel.Usuario.Empresa
             catch (Exception ex)
             {
                 Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void OnBuscarEndereco()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                var e = Location.GetCEPPosition(Endereco.Cep);
+
+                if (e != null)
+                    Endereco = e;
+            }
+            catch (Exception ex)
+            {
+                Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async void OnBuscarLocalizacao()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                var e = await Location.GetGPSPosition();
+                if (e != null)
+                    Endereco = e;
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "Ok");
             }
             finally
             {

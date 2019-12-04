@@ -45,10 +45,20 @@
                 <Label Text="Endereco:" 
                        VerticalTextAlignment="Center"
                        WidthRequest="100"/>
-                <Label x:Name="txtEndereco"
-                       Text="{Binding Estagio.Endereco}"
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="txtEndereco"
+                       Text="{Binding Endereco}"
                        HorizontalOptions="FillAndExpand"
                        FontAttributes="Bold"/>
+                <ImageButton x:Name="btnOpenMaps"
+                             Source="{OnPlatform Default=external_link.png, UWP=Resources/external_link.png}"
+                             Command="{Binding OpenMapsCommand}"
+                             Aspect="AspectFit"
+                             WidthRequest="{OnPlatform Default=28,UWP=32}"
+                             BackgroundColor="Transparent"
+                             VerticalOptions="End"
+                             Margin="10,0,0,0"/>
+                </StackLayout>
             </StackLayout>
             
             <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"

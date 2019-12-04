@@ -134,12 +134,15 @@
     <Content Include="Resources\camera.png" />
     <Content Include="Resources\cancelar.png" />
     <Content Include="Resources\deletar.png" />
+    <Content Include="Resources\external_link.png" />
     <Content Include="Resources\favorito.png" />
     <Content Include="Resources\galeria.png" />
     <Content Include="Resources\limpar.png" />
+    <Content Include="Resources\localizacao.png" />
     <Content Include="Resources\logo_com_escrita.png" />
     <Content Include="Resources\logo_sem_escrita.png" />
     <Content Include="Resources\logo_sem_escrita_branco.png" />
+    <Content Include="Resources\lupa.png" />
     <Content Include="Resources\salvar.png" />
     <Content Include="Resources\sem_imagem.png" />
   </ItemGroup>
@@ -154,6 +157,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Xam.Plugin.Geolocator">
+      <Version>4.5.0.6</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.0.1.5</Version>
     </PackageReference>

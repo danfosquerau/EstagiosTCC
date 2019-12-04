@@ -1,6 +1,5 @@
 ﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
-using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System;
 using System.Threading.Tasks;
@@ -11,9 +10,7 @@ namespace EstagiosTCC.Util
     {
         public static async Task<MediaFile> GetPhotoFromGallery()
         {
-            bool response = await GetPermission();
-
-            if (!response)
+            if (!await GetPermissions())
                 throw new Exception("Permissão negada!");
 
             await CrossMedia.Current.Initialize();
@@ -35,9 +32,7 @@ namespace EstagiosTCC.Util
 
         public static async Task<MediaFile> GetPhotoFromCamera()
         {
-            bool response = await GetPermission();
-
-            if (!response)
+            if (!await GetPermissions())
                 throw new Exception("Permissão negada!");
 
             await CrossMedia.Current.Initialize();
@@ -57,22 +52,13 @@ namespace EstagiosTCC.Util
             else
                 return file as MediaFile;
         }
-
-        private static async Task<bool> GetPermission()
+    
+        private static async Task<bool> GetPermissions()
         {
-            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
-            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-
-            if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-            {
-                var results = await CrossPermissions.Current
-                    .RequestPermissionsAsync(new[] { Permission.Camera, Permission.Storage });
-                
-                cameraStatus = results[Permission.Camera];
-                storageStatus = results[Permission.Storage];
-            }
-
-            if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
+            var camera = await Permissions.GetPermission(Permission.Camera);
+            var storage = await Permissions.GetPermission(Permission.Storage);
+            
+            if (camera == true && storage == true)
                 return true;
             else
                 return false;

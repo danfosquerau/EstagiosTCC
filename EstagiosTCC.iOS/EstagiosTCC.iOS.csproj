@@ -125,6 +125,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Xam.Plugin.Geolocator">
+      <Version>4.5.0.6</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.0.1.5</Version>
     </PackageReference>
@@ -176,5 +179,14 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\sem_imagem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\localizacao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\lupa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\external_link.png" />
   </ItemGroup>
 </Project>

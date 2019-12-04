@@ -1,5 +1,4 @@
 ﻿using EstagiosTCC.Dao;
-using EstagiosTCC.Model;
 using EstagiosTCC.Util;
 using System;
 using System.Collections.ObjectModel;
@@ -13,6 +12,7 @@ namespace EstagiosTCC.ViewModel.Estagio
     {
         public ICommand OpenWebCommand { get; set; }
         public ICommand FavoritoCommand { get; set; }
+        public ICommand OpenMapsCommand { get; set; }
 
         public ObservableCollection<Model.Curso> ListaCursosEstagio { get; set; }
 
@@ -29,6 +29,13 @@ namespace EstagiosTCC.ViewModel.Estagio
             set { SetProperty(ref _anexoUrl, value); }
         }
 
+        private string _endereco = string.Empty;
+        public string Endereco
+        {
+            get { return _endereco; }
+            set { SetProperty(ref _endereco, value); }
+        }
+
         public DetalhesEstagioViewModel()
         {
             Title = "Detalhes do Estágio";
@@ -38,10 +45,13 @@ namespace EstagiosTCC.ViewModel.Estagio
         {
             Title = "Detalhes do Estágio";
             Estagio = estagio;
+            Endereco = Estagio.Endereco.Logradouro + ", " + Estagio.Endereco.Unidade + " - " +
+                Estagio.Endereco.Bairro + ", " + Estagio.Endereco.Localidade + "/" + Estagio.Endereco.Uf +", "+ Estagio.Endereco.Cep;
             CarregarRecursos();
             FavoritoCommand = new Command(() => OnFavorito());
             OpenWebCommand = new Command(() => Launcher.OpenAsync(
                 new Uri(string.IsNullOrEmpty(Estagio.LinkParaInformacoes) ? "https://xamarin.com/platform" : Estagio.LinkParaInformacoes))); ;
+            OpenMapsCommand = new Command(() => OnOpenMaps());
         }
 
         private async void CarregarRecursos()
@@ -90,6 +100,49 @@ namespace EstagiosTCC.ViewModel.Estagio
             catch (Exception ex)
             {
                 Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+    
+        private async void OnOpenMaps()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    string endereco = RemoveCarecteres.ObterStringSemAcentosECaracteresEspeciais(Endereco);
+                    endereco = endereco.Replace(" ","+");
+                    await Launcher.TryOpenAsync("http://maps.apple.com/?q="+ endereco);
+                }
+                else if (Device.RuntimePlatform == Device.Android)
+                {
+                    string endereco = RemoveCarecteres.ObterStringSemAcentosECaracteresEspeciais(Endereco);
+                    endereco = endereco.Replace(" ", "+");
+                    await Launcher.TryOpenAsync("geo:0,0?q="+ endereco);
+                }
+                else if (Device.RuntimePlatform == Device.UWP)
+                {
+                    await Map.OpenAsync(new Placemark()
+                    {
+                        PostalCode = Estagio.Endereco.Cep,
+                        Thoroughfare = Estagio.Endereco.Logradouro,
+                        Locality = Estagio.Endereco.Localidade,
+                        AdminArea = Estagio.Endereco.Uf,
+                        SubThoroughfare = Estagio.Endereco.Unidade
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "OK");
             }
             finally
             {

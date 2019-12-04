@@ -8,8 +8,8 @@
             <ScrollView VerticalScrollBarVisibility="Never">
                 <StackLayout Spacing="0">
                     <ActivityIndicator IsVisible="{Binding IsBusy}"
-                           IsRunning="{Binding IsBusy}"
-                           BackgroundColor="{StaticResource ColorAccent}"/>
+                                    IsRunning="{Binding IsBusy}"
+                                    BackgroundColor="{StaticResource ColorAccent}"/>
                     <RelativeLayout>
                         <BoxView x:Name="boxView" 
                      Color="{StaticResource ColorAccent}" 

@@ -1,5 +1,6 @@
 ﻿using EstagiosTCC.Dao;
 using EstagiosTCC.Model;
+using EstagiosTCC.View.Curso;
 using EstagiosTCC.View.Usuario;
 using EstagiosTCC.View.Usuario.Empresa;
 using EstagiosTCC.View.Usuario.Estudante;
@@ -69,7 +70,7 @@ namespace EstagiosTCC.Util.OAuth
             if (e.IsAuthenticated)
             {
                 string accessToken = e.Account.Properties["access_token"];
-                
+
                 if (await UsuarioDao.EntrarComOAuth(Firebase.Auth.FirebaseAuthType.Facebook, accessToken))
                     GetUserType();
             }

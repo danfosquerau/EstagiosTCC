@@ -42,7 +42,7 @@ namespace EstagiosTCC.ViewModel.Usuario
 
             try
             {
-                if (!ValidationHelper.IsFormValid(Usuario, page))
+                if (!ValidationHelper.IsFormValid(Usuario, page, true))
                     return;
 
                 if (await UsuarioDao.Inserir(Usuario.Email, Usuario.Senha))

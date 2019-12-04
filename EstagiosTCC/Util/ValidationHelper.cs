@@ -9,9 +9,10 @@ namespace EstagiosTCC.Util
 {
     public static class ValidationHelper
     {
-        public static bool IsFormValid(object model, Page page)
+        public static bool IsFormValid(object model, Page page, bool hideFields)
         {
-            HideValidationFields(model, page);
+            if(hideFields)
+                HideValidationFields(model, page);
 
             var errors = new List<ValidationResult>();
             var context = new ValidationContext(model);

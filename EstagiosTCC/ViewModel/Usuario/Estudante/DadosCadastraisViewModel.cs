@@ -140,7 +140,7 @@ namespace EstagiosTCC.ViewModel.Usuario.Estudante
             IsBusy = true;
             try
             {
-                if (!ValidationHelper.IsFormValid(Estudante, page))
+                if (!ValidationHelper.IsFormValid(Estudante, page, true))
                     return;
 
                 if (Estudante.FotoPerfilUrl != ImgPerfil)
