@@ -58,7 +58,7 @@ namespace EstagiosTCC.Model
 
     public class StatusEstagio
     {
-        public Status Id { get; set; }
+        public Status Codigo { get; set; }
         public string Nome { get; set; }
     }
 }

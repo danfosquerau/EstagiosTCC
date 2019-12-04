@@ -4,10 +4,67 @@
              x:Class="EstagiosTCC.View.RecuperarSenhaPage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Spacing="0">
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                       IsRunning="{Binding IsBusy}"/>
+            <StackLayout HorizontalOptions="CenterAndExpand"
+                                 WidthRequest="{OnPlatform Default=300, UWP=500}"
+                                 Margin="0,20,0,60"
+                                 Spacing="0">
+
+                <Label Margin="0,0,0,40">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Recuperar Senha!" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
+                                <Span Text="&#10;"/>
+                                <Span Text="&#10;"/>
+                                <Span Text="Preencha o campo abaixo para que possamos lhe enviar um email para recuperar sua senha."/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <!--Email-->
+                <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                                     Spacing="0">
+                    <Label Text="Email" 
+                                   VerticalTextAlignment="Center" 
+                                   WidthRequest="130"/>
+                    <Entry x:Name="txtEmail"
+                                   Text="{Binding Email}"
+                                   HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+                <Label x:Name="UsuarioAux_EmailError"
+                        Text="{Binding EmailError}"
+                        IsVisible="{Binding EmailErrorVisible}"
+                        TextColor="Red"
+                       VerticalTextAlignment="Center" />
+                <!--Email-->
+
+                <!--Botões-->
+                <StackLayout Orientation="Horizontal" 
+                                     HorizontalOptions="Center"
+                                     Margin="0,30,0,0">
+                    <Button x:Name="btnContinuar"
+                                    Text="Continuar" 
+                                    Command="{Binding ContinuarCommand}"
+                                    WidthRequest="{OnPlatform Default=137, UWP=187}"
+                                    BackgroundColor="#5cb85c"
+                                    TextColor="White"
+                                    CornerRadius="20"
+                                    Margin="0,0,10,0"/>
+                    <Button x:Name="btnCancelar"
+                                    Text="Cancelar" 
+                                    Command="{Binding CancelarCommand}"
+                                    WidthRequest="{OnPlatform Default=137, UWP=187}"
+                                    BackgroundColor="#d9534f"
+                                    TextColor="White"
+                                    CornerRadius="20"
+                                    Margin="10,0,0,0"/>
+                </StackLayout>
+                <!--Botões-->
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

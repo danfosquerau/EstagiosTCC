@@ -1,7 +1,9 @@
 ﻿using EstagiosTCC.Dao;
 using EstagiosTCC.Util;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -14,31 +16,42 @@ namespace EstagiosTCC.ViewModel.Estagio
         public ObservableCollection<Model.Curso> ListaCursos { get; set; }
         public ObservableCollection<Model.Estagio> ListaEstagios { get; set; }
 
-        public BuscarEstagioViewModel()
+        public BuscarEstagioViewModel(Picker picker)
         {
             Title = "Buscar Estágios";
 
-            CarregarCursos();
+            CarregarCursos(picker);
             CarregarEstagios();
 
             TodosEstagiosCommand = new Command(() => OnTodosEstagios());
         }
 
-        private async void CarregarCursos()
+        private async void CarregarCursos(Picker picker)
         {
             ListaCursos = new ObservableCollection<Model.Curso>() { new Model.Curso() { Nome = "Selecione um curso..." } };
             var lista = await CursoDao.Buscar();
 
             foreach (Model.Curso item in lista)
                 ListaCursos.Add(item);
+
+            picker.ItemsSource = ListaCursos;
+            if (!string.IsNullOrEmpty(App.EstudanteDados.Curso))
+                picker.SelectedItem = ListaCursos.Where(x => x.Codigo == App.EstudanteDados.Curso).FirstOrDefault();
+            else
+                picker.SelectedIndex = 0;
         }
 
         private async void CarregarEstagios()
         {
             ListaEstagios = new ObservableCollection<Model.Estagio>();
-            var listaEstagios = await EstagioDao.Buscar();
+            List<Model.Estagio> list;
 
-            foreach (Model.Estagio item in listaEstagios)
+            if(!string.IsNullOrEmpty(App.EstudanteDados.Curso))
+                list = (await EstagioDao.Buscar()).Where(x => x.CodigosCursos.Contains(App.EstudanteDados.Curso)).ToList();
+            else
+                list = await EstagioDao.Buscar();
+
+            foreach (Model.Estagio item in list)
                 ListaEstagios.Add(item);
         }
 
@@ -46,7 +59,7 @@ namespace EstagiosTCC.ViewModel.Estagio
         {
             ListaEstagios.Clear();
 
-            var listaEstagios = await EstagioDao.Buscar();
+            var listaEstagios = (await EstagioDao.Buscar()).Where(x => x.CodigosCursos.Contains(codigo));
 
             foreach (Model.Estagio item in listaEstagios)
                 ListaEstagios.Add(item);

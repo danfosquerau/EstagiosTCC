@@ -108,9 +108,11 @@
                             <Label Text="Curso" 
                        VerticalTextAlignment="Center" 
                        WidthRequest="100"/>
-                            <Entry x:Name="txtCurso"
-                                   Text="{Binding Estudante.Curso}" 
-                       HorizontalOptions="FillAndExpand"/>
+                            <Picker x:Name="pkrCursos"
+                                    ItemsSource="{Binding ListaCursos}"
+                                    SelectedIndexChanged="pkrCursos_SelectedIndexChanged"
+                                    ItemDisplayBinding="{Binding Nome}"
+                                HorizontalOptions="FillAndExpand"/>
                         </StackLayout>
                         <Label x:Name="Estudante_CursoError"
                    IsVisible="False"

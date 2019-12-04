@@ -21,6 +21,22 @@
             
             <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
                          Spacing="0">
+                <Label Text="Status" 
+                       VerticalTextAlignment="Center" 
+                       WidthRequest="100"/>
+                <Picker x:Name="pkrStatus"
+                        ItemDisplayBinding="{Binding Nome}"
+                        SelectedIndexChanged="pkrStatus_SelectedIndexChanged"
+                        HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            <Label x:Name="Estagio_StatusError"
+                   IsVisible="False"
+                   TextColor="Red"
+                   VerticalTextAlignment="Center" />
+            
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0"
+                         Margin="0,10,0,0">
                 <Label Text="Empresa" 
                        VerticalTextAlignment="Center" 
                        WidthRequest="100"/>
@@ -260,14 +276,14 @@
                         TextColor="Red"
                         VerticalTextAlignment="Center" />
                 </StackLayout>
-                <ImageButton x:Name="btnIr"
+                <!--<ImageButton x:Name="btnIr"
                              Aspect="AspectFit"
                              WidthRequest="{OnPlatform Default=28,UWP=32}"
                              Command="{Binding UrlTesteCommand}"
                               Source="{OnPlatform Default=external_link.png, UWP=Resources/external_link.png}"
                               BackgroundColor="Transparent"
                               VerticalOptions="End"
-                             Margin="10,0,0,0"/>    
+                             Margin="10,0,0,0"/>-->    
             </StackLayout>
            
             <Label Text="Descrição das Atividades" 
@@ -343,8 +359,9 @@
                     </ListView>
                 </StackLayout>
             </Grid>
-            <Label x:Name="Esagio_CodigosCursosError"
-                   IsVisible="False"
+            <Label x:Name="Etagio_CodigosCursosError"
+                   Text="{Binding CodigoCursosError}"
+                   IsVisible="{Binding CodigoCursosErrorVisible}"
                    TextColor="Red"
                    VerticalTextAlignment="Center" /> 
             

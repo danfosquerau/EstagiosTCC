@@ -43,7 +43,7 @@ namespace EstagiosTCC.ViewModel
 
             try
             {
-                if (!ValidationHelper.IsFormValid(Credencial, page, true))
+                if (!ValidationHelper.IsFormValid(Credencial, page))
                     return;
 
                 if (await UsuarioDao.EntrarComEmailESenha(Credencial.Email, Credencial.Senha))

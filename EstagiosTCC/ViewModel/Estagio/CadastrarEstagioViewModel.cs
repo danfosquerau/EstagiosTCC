@@ -15,6 +15,7 @@ namespace EstagiosTCC.ViewModel.Estagio
     public class CadastrarEstagioViewModel : BaseViewModel
     {
         private readonly Page page;
+        private Picker picker;
 
         public ICommand SalvarCommand { get; set; }
         public ICommand CancelarCommand { get; set; }
@@ -66,10 +67,25 @@ namespace EstagiosTCC.ViewModel.Estagio
             set { SetProperty(ref _cepErrorVisible, value); }
         }
 
-        public CadastrarEstagioViewModel(Page page)
+        private string _codigoCursosError = string.Empty;
+        public string CodigoCursosError
+        {
+            get { return _codigoCursosError; }
+            set { SetProperty(ref _codigoCursosError, value); }
+        }
+
+        private bool _codigoCursosErrorVisible = false;
+        public bool CodigoCursosErrorVisible
+        {
+            get { return _codigoCursosErrorVisible; }
+            set { SetProperty(ref _codigoCursosErrorVisible, value); }
+        }
+
+        public CadastrarEstagioViewModel(Page page, Picker picker)
         {
             Title = "Novo Estágio";
             this.page = page;
+            this.picker = picker;
 
             Estagio = new Model.Estagio()
             {
@@ -83,10 +99,11 @@ namespace EstagiosTCC.ViewModel.Estagio
             AcoesDosBotoes();
         }
 
-        public CadastrarEstagioViewModel(Page page, Model.Estagio estagio)
+        public CadastrarEstagioViewModel(Page page, Model.Estagio estagio, Picker picker)
         {
             Title = "Editar Estágio";
             this.page = page;
+            this.picker = picker;
 
             Estagio = estagio;
             Estagio.Empresa = App.EmpresaDados.NomeEmpresa;
@@ -125,10 +142,13 @@ namespace EstagiosTCC.ViewModel.Estagio
 
             ListaStatus = new ObservableCollection<Model.StatusEstagio>()
             {
-                 { new Model.StatusEstagio() { Id = Model.Status.Disponivel, Nome = "Disponível" } },
-                 { new Model.StatusEstagio() { Id = Model.Status.Ocupado, Nome = "Ocupado" } },
-                 { new Model.StatusEstagio() { Id = Model.Status.Desativado, Nome = "Desativado" } }
+                 { new Model.StatusEstagio() { Codigo = Model.Status.Disponivel, Nome = "Disponível" } },
+                 { new Model.StatusEstagio() { Codigo = Model.Status.Ocupado, Nome = "Ocupado" } },
+                 { new Model.StatusEstagio() { Codigo = Model.Status.Desativado, Nome = "Desativado" } }
             };
+
+            picker.ItemsSource = ListaStatus;
+            picker.SelectedItem = ListaStatus.Where(x => x.Codigo == Estagio.Status).FirstOrDefault();
         }
 
         private void AcoesDosBotoes()
@@ -196,22 +216,30 @@ namespace EstagiosTCC.ViewModel.Estagio
 
             try
             {
+                CodigoCursosError = string.Empty;
+                CodigoCursosErrorVisible = false;
+
+                bool estagio = ValidationHelper.IsFormValid(Estagio, page);
+                bool endereco = ValidationHelper.IsFormValid(Endereco, page);
+                bool cursos = (ListaCursosDoEstagio.Count == 0) ? true : false ;
+
+                if (!estagio || !endereco || cursos)
+                {
+                    if (cursos)
+                    {
+                        CodigoCursosError = "Adicione pelo menos um curso para o estágio.";
+                        CodigoCursosErrorVisible = true;
+                    }
+                    
+                    return;
+                }
+                   
                 Estagio.Endereco = Endereco;
 
-                if (!ValidationHelper.IsFormValid(Estagio, page, true))
-                    return;
-
-                if (!ValidationHelper.IsFormValid(Endereco, page, false))
-                    return;
-
-                if (ListaCursosDoEstagio.Count > 0)
-                {
-                    for (var i = 0; i < ListaCursosDoEstagio.Count; i++)
-                        Estagio.CodigosCursos.Add(ListaCursosDoEstagio[i].Codigo);
-                }
-                else
-                    return;
-
+                Estagio.CodigosCursos.Clear();
+                for (var i = 0; i < ListaCursosDoEstagio.Count; i++)
+                    Estagio.CodigosCursos.Add(ListaCursosDoEstagio[i].Codigo);
+                
                 bool response;
 
                 if (string.IsNullOrEmpty(Estagio.Codigo))
@@ -299,7 +327,14 @@ namespace EstagiosTCC.ViewModel.Estagio
             try
             {
                 Title = "Novo Estágio";
-                Estagio = new Model.Estagio();
+                Estagio = new Model.Estagio()
+                {
+                    Empresa = App.EmpresaDados.NomeEmpresa,
+                    LogoEmpresa = App.EmpresaDados.LogoEmpresa,
+                    Endereco = App.EmpresaDados.Endereco
+                };
+                Endereco = Estagio.Endereco;
+
                 CarregarRecursos();
             }
             catch (Exception ex)

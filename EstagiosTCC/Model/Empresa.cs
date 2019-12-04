@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EstagiosTCC.Util.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +10,7 @@ namespace EstagiosTCC.Model
         public string Codigo { get; set; }
         public string Email { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório.")]
+        [CNPJ(ErrorMessage ="CNPJ inválido.")]
         public string Cnpj { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Obrigatório.")]
         public string AtividadeEconomica { get; set; }

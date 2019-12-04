@@ -47,15 +47,6 @@ namespace EstagiosTCC.Util
                     endereco.Cep = aux;
                 }
             }
-            
-            var end = GetCEPPosition(endereco.Cep.Replace("-",""));
-            
-            if(end != null)
-            {
-                endereco.Localidade = end.Localidade;
-                endereco.Uf = end.Uf;
-                endereco.Bairro = string.IsNullOrEmpty(end.Bairro)? end.Bairro : endereco.Bairro;
-            }
 
             return endereco;
         }

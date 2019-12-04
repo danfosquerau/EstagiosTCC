@@ -10,18 +10,23 @@ namespace EstagiosTCC.View.Estagio
         private readonly BuscarEstagioViewModel viewModel;
 
         private bool flag = false;
+        private bool aux = true;
 
         public BuscarEstagioPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new BuscarEstagioViewModel();
-
-            pkrCursos.SelectedIndex = 0;
+            BindingContext = viewModel = new BuscarEstagioViewModel(pkrCursos);
         }
 
         private void pkrCursos_SelectedIndexChanged(object sender, System.EventArgs e)
         {
+            if (aux)
+            {
+                aux = false; 
+                return;
+            }
+
             if (pkrCursos.SelectedIndex != 0)
             {
                 var item = sender as Picker;

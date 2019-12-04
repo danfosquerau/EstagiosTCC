@@ -15,7 +15,7 @@ namespace EstagiosTCC.Util
                 var results = await CrossPermissions.Current
                     .RequestPermissionsAsync(new[] { permission });
 
-                status = results[Permission.Location];
+                status = results[permission];
             }
 
             if (status == PermissionStatus.Granted)

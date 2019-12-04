@@ -18,6 +18,17 @@
             
             <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
                          Spacing="0">
+                <Label Text="Status:" 
+                       VerticalTextAlignment="Center" 
+                       WidthRequest="100"/>
+                <Label x:Name="txtStatus"
+                       Text="{Binding Status}"
+                       HorizontalOptions="FillAndExpand"
+                       FontAttributes="Bold"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="{OnPlatform UWP=Horizontal, Default=Vertical}"
+                         Spacing="0">
                 <Label Text="Empresa:" 
                        VerticalTextAlignment="Center" 
                        WidthRequest="100"/>

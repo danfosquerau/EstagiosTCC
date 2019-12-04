@@ -36,6 +36,13 @@ namespace EstagiosTCC.ViewModel.Estagio
             set { SetProperty(ref _endereco, value); }
         }
 
+        private string _status = string.Empty;
+        public string Status
+        {
+            get { return _status; }
+            set { SetProperty(ref _status, value); }
+        }
+
         public DetalhesEstagioViewModel()
         {
             Title = "Detalhes do Estágio";
@@ -45,8 +52,13 @@ namespace EstagiosTCC.ViewModel.Estagio
         {
             Title = "Detalhes do Estágio";
             Estagio = estagio;
+            
+            Status = Estagio.Status.Equals(Model.Status.Disponivel) ? "Disponível" :
+                Estagio.Status.Equals(Model.Status.Ocupado) ? "Ocupado" : "Desativado";
+
             Endereco = Estagio.Endereco.Logradouro + ", " + Estagio.Endereco.Unidade + " - " +
                 Estagio.Endereco.Bairro + ", " + Estagio.Endereco.Localidade + "/" + Estagio.Endereco.Uf +", "+ Estagio.Endereco.Cep;
+            
             CarregarRecursos();
             FavoritoCommand = new Command(() => OnFavorito());
             OpenWebCommand = new Command(() => Launcher.OpenAsync(

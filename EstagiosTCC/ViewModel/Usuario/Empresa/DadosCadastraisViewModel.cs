@@ -155,10 +155,7 @@ namespace EstagiosTCC.ViewModel.Usuario.Empresa
             {
                 Empresa.Endereco = Endereco;
 
-                if (!ValidationHelper.IsFormValid(Empresa, page, true))
-                    return;
-
-                if (!ValidationHelper.IsFormValid(Endereco, page, false))
+                if (!ValidationHelper.IsFormValid(Empresa, page) || !ValidationHelper.IsFormValid(Endereco, page))
                     return;
 
                 if (Empresa.LogoEmpresa != ImgLogoEmpresa)

@@ -2,7 +2,10 @@
 using EstagiosTCC.Util;
 using EstagiosTCC.View.Usuario.Estudante;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -15,6 +18,9 @@ namespace EstagiosTCC.ViewModel.Usuario.Estudante
         public ICommand RemoverFotoCommand { get; set; }
         public ICommand SalvarCommand { get; set; }
         public ICommand CancelarCommand { get; set; }
+
+        public ObservableCollection<Model.Curso> ListaCursos { get; set; }
+        public List<Model.Curso> ListaCursosIntern { get; set; }
 
         private readonly Page page;
 
@@ -33,8 +39,9 @@ namespace EstagiosTCC.ViewModel.Usuario.Estudante
             set { SetProperty(ref _estudante, value); }
         }
 
-        public DadosCadastraisViewModel(Page page)
+        public DadosCadastraisViewModel(Page page, Picker picker)
         {
+            CarregarCursos(picker);
             Title = "Dados Cadastrais";
             this.page = page;
             imgPerfilStream = null;
@@ -44,6 +51,20 @@ namespace EstagiosTCC.ViewModel.Usuario.Estudante
             RemoverFotoCommand = new Command(() => OnRemoverFoto());
             SalvarCommand = new Command(() => OnSalvar());
             CancelarCommand = new Command(() => OnCancelar());
+        }
+
+        public async void CarregarCursos(Picker picker)
+        {
+            ListaCursosIntern = new List<Model.Curso>();
+            ListaCursos = new ObservableCollection<Model.Curso>() { new Model.Curso() { Nome = "Selecione um curso..." } };
+            ListaCursosIntern = await CursoDao.Buscar();
+
+            foreach (Model.Curso item in ListaCursosIntern)
+                ListaCursos.Add(item);
+
+            picker.ItemsSource = ListaCursos;
+            if (!string.IsNullOrEmpty(App.EstudanteDados.Curso))
+                picker.SelectedItem = ListaCursos.Where(x => x.Codigo == App.EstudanteDados.Curso).FirstOrDefault();
         }
 
         private void GetDadosUsuario()
@@ -140,7 +161,7 @@ namespace EstagiosTCC.ViewModel.Usuario.Estudante
             IsBusy = true;
             try
             {
-                if (!ValidationHelper.IsFormValid(Estudante, page, true))
+                if (!ValidationHelper.IsFormValid(Estudante, page))
                     return;
 
                 if (Estudante.FotoPerfilUrl != ImgPerfil)
