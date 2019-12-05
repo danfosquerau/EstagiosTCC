@@ -26,7 +26,7 @@ namespace EstagiosTCC.View.Usuario.Empresa
 
         private void CarregarMenu(MenuItemTipo menuItem)
         {
-            MasterBehavior = MasterBehavior.Popover;
+            MasterBehavior = Device.RuntimePlatform == Device.UWP ? MasterBehavior.Default : MasterBehavior.Popover;
             
             lvwMenu.ItemsSource = items = new List<MainPageMenuItem>
             {

@@ -22,6 +22,7 @@
                     </Grid.ColumnDefinitions>
                     <Image x:Name="imgPerfil"
                            Grid.Row="1" Grid.Column="1"
+                           HeightRequest="80"
                            HorizontalOptions="Start"
                            Source="{OnPlatform Default=sem_imagem.png, UWP=Resources/sem_imagem.png}"
                            Aspect="AspectFit"/>

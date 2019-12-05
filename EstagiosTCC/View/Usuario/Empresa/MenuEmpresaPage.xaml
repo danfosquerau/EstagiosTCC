@@ -23,6 +23,7 @@
                     <Image x:Name="imgLogo"
                            Grid.Row="1" Grid.Column="1"
                            HorizontalOptions="Start"
+                           HeightRequest="80"
                            Source="{OnPlatform Default=sem_imagem.png, UWP=Resources/sem_imagem.png}"
                            Aspect="AspectFit"/>
                     <Label Grid.Row="2" Grid.Column="1"
